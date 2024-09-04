@@ -1,0 +1,34 @@
+{
+    "stateList": {
+        "state_1": {
+            "space_1": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            },
+            "space_2": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            },
+            "space_3": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            }
+        },
+        "state_2": {
+            "space_1": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            },
+            "space_2": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            }
+        },
+        "state_3": {
+            "space_1": {
+                "name": "makerspace name",
+                "url": "https://makerspaceurl.com"
+            }
+        }
+    }
+}

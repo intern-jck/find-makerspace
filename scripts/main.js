@@ -1,38 +1,54 @@
 // Get the json file of makerspaces from GitHub.
 // let requestURL =
 //   "https://raw.githubusercontent.com/intern-jck/findMakerspace/main/assets/json/spaceList.json";
-// let request = new XMLHttpRequest();
-// request.open("GET", requestURL);
-// request.responseType = "json";
-// request.send();
 
-// // Save contents of JSON.
-// let makerList = {};
-// request.onload = function () {
-//   makerList = request.response;
-// };
+const testList = {
+  states: {
+    state_1: {
+      space_1: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+      space_2: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+      space_3: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+    },
+    state_2: {
+      space_1: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+      space_2: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+    },
+    state_3: {
+      space_1: {
+        name: "makerspace name",
+        url: "https://makerspaceurl.com",
+      },
+    },
+  },
+};
 
-// When the SVG loads, add events to each SVG path.
-// let mySvg = document.getElementById("us-map");
-// console.log(mySvg)
-
-// mySvg.onload = function () {
-//   let svgPaths = document.getElementById("us-map").children;
-//   console.log(svgPaths)
-//   for (let i = 0; i < svgPaths.length; i++) {
-//     addEvent(svgPaths[i]);
-//   }
-// };
+let makerspaceList = {};
 
 window.addEventListener("load", () => {
+  makerspaceList = testList.states;
   let mySvg = document.getElementById("us-map");
   let svgPaths = document.getElementById("us-map").children;
   for (let i = 0; i < svgPaths.length; i++) {
-    addStateMouseEvents(svgPaths[i]);
+    addSvgMouseEvents(svgPaths[i]);
   }
 });
 
-function addStateMouseEvents(state) {
+function addSvgMouseEvents(state) {
   // Get state svg.
   element = document.getElementById(state.id);
   // Show name on mouse hover.
@@ -64,45 +80,74 @@ function updateMakerList(stateId) {
 
   // Create title for list.
   document.getElementById("list-title").innerHTML =
-    stateId.toUpperCase() + " Makerspaces";
+    stateId.toUpperCase() + " MAKERSPACES";
 
   // Clear any lists currently being shown.
   while (listContent.firstChild) {
     listContent.removeChild(listContent.firstChild);
   }
 
-  // For each space in the list,
-  for (let space in makerList[stateId]) {
-    // make the name row,
-    let spaceNameRow = document.createElement("div");
-    spaceNameRow.classList.add("row");
+  let ranNum = Math.floor(Math.random() * 3) + 1;
+  stateId = `state_${ranNum}`;
+
+  console.log(stateId);
+  const makerspaces = makerspaceList[stateId];
+  // console.log(makerspaces)
+
+  // test
+  // for (let key in makerspaces) {
+  //   const space = makerspaces[key]
+  //   console.log(space)
+  //   console.log(space.name)
+  //   console.log(space.url)
+  // }
+
+  for (let key in makerspaces) {
+
+    const space = makerspaces[key]
+    // console.log(space)
+    console.log(space.name)
+    console.log(space.url)
+
+    const name = space.name;
+    const url = space.url;
+
+    // make the space div,
+    let spaceRow = document.createElement("div");
+    spaceRow.classList.add("space-list-row");
 
     // make the space name,
     var spaceName = document.createElement("h2");
-    spaceName.innerHTML = makerList[stateId][space][0];
-    spaceName.classList.add("pt-2");
     spaceName.classList.add("space-name");
+    spaceName.textContent = name;
 
     // make the link row,
-    let spaceLinkRow = document.createElement("div");
-    spaceLinkRow.classList.add("row");
-
-    // make the space link,
-    var spaceLink = document.createElement("h2");
-    var linkAnchor = document.createElement("a");
-    linkAnchor.innerHTML = makerList[stateId][space][1];
-    linkAnchor.setAttribute("href", makerList[stateId][space][1]);
-    linkAnchor.setAttribute("target", "_blank");
-    linkAnchor.classList.add("pb-2");
-    linkAnchor.classList.add("space-link");
-    spaceLink.appendChild(linkAnchor);
+    let spaceUrl = document.createElement("a");
+    spaceUrl.classList.add("space-url");
+    spaceUrl.setAttribute("href", url);
+    spaceUrl.setAttribute("target", "_blank");
+    spaceUrl.innerHTML = url;
 
     // add name and link to their rows,
-    spaceNameRow.appendChild(spaceName);
-    spaceLinkRow.appendChild(spaceLink);
+    spaceRow.appendChild(spaceName);
+    spaceRow.appendChild(spaceUrl);
+    console.log(spaceRow)
 
     // then add the rows to the page.
-    listContent.appendChild(spaceNameRow);
-    listContent.appendChild(spaceLinkRow);
+    listContent.appendChild(spaceRow);
   }
+}
+
+function getStateList() {
+  const requestURL = "../assets/data/state_list.json";
+  const request = new XMLHttpRequest();
+  request.open("GET", requestURL);
+  request.responseType = "json";
+  request.send();
+
+  makerspaceList = {};
+  request.onload = function () {
+    console.log(request.response);
+    makerspaceList = request.response;
+  };
 }
