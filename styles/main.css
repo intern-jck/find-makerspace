@@ -31,6 +31,16 @@ a:hover {
   cursor: pointer;
 }
 
+button {
+  border: 4px solid black;
+  background-color: white;
+}
+
+button:hover {
+  background-color: var(--active-color);
+  cursor: pointer;
+}
+
 .page-content {
   display: flex;
   flex-direction: column;
@@ -90,6 +100,17 @@ h1 {
 /* Makerspace List Section */
 #list-title {
   color: var(--font-color);
+  text-align: center;
+  font-size: 3rem;
+}
+
+#list-content {
+  padding-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .space-name {
@@ -100,4 +121,59 @@ h1 {
 .space-link {
   color: var(--state-2-color);
   word-wrap: break-word;
+}
+
+/* ABOUT PAGE */
+.about-text {
+  width: 50rem;
+  margin: auto;
+  padding: 1rem;
+  font-size: 1.6rem;
+}
+
+.about-link {
+  margin: auto;
+  font-size: 4rem;
+}
+
+/* CONTACT PAGE */
+
+.contact-text {
+  width: 50rem;
+  margin: auto;
+  padding: 1rem;
+  font-size: 1.6rem;
+}
+
+.contact-form {
+  margin: auto;
+  margin-top: 4rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form .form-row {
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 2px solid black;
+  font-size: 2rem;
+  width: 30rem;
+}
+
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border: 2px solid var(--active-color);
+}
+
+.contact-form button {
+  font-size: 2rem;
+  width: 16rem;
+  margin: auto;
 }

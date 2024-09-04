@@ -1,119 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>findMakerspace(state)</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>findMakerspace()</title>
 
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/cdcc65decb.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="styles/navbar.css" />
 
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"
-    defer></script>
+    <!-- EmailJS -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
 
-  <!-- EmailJS -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript" defer>
+      (function () {
+        emailjs.init("user_zEaMjktSGuSK3vfKZTaF3");
+      })();
+    </script>
 
-  <script type="text/javascript" defer>
-    (function () {
-      emailjs.init("user_zEaMjktSGuSK3vfKZTaF3");
-    })();
-  </script>
-
-  <script type="text/javascript" defer>
-    window.onload = function () {
-        document.getElementById('contact-form').addEventListener('submit', function (event) {
-            event.preventDefault();;
+    <script type="text/javascript" defer>
+      window.onload = function () {
+        document
+          .getElementById("contact-form")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
             // Hack to use same template for multiple sites
             this.site.value = "find-makerspace";
             // these IDs from the previous steps
-            emailjs.sendForm('general_service', 'general_template', this)
-                .then(function () {
-                    console.log('SUCCESS!');
-                    window.alert("Thank you for the message!");
-                }, function (error) {
-                    console.log('FAILED...', error);
-                });
-        });
-    }
-  </script>
+            emailjs.sendForm("general_service", "general_template", this).then(
+              function () {
+                console.log("SUCCESS!");
+                window.alert("Thank you for the message!");
+              },
+              function (error) {
+                console.log("FAILED...", error);
+              }
+            );
+          });
+      };
+    </script>
+  </head>
 
-  <!-- My CSS -->
-  <link rel="stylesheet" type="text/css" href="styles/main.css">
-
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-lg" aria-label="site-nav">
-    <div class="container">
-
-      <a class="navbar-brand" href="index.html">findMakerspace()</a>
-      <a href="https://github.com/makerinchief/find-makerspace" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar"
-        aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+  <body>
+    <nav class="navbar" aria-label="site-nav">
+      <button
+        class="navbar-toggler"
+        aria-controls="site-navbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fa-solid fa-bars"></i>
       </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="site-navbar">
-        <ul class="navbar-nav">
-
-          <li class="nav-item fs-3 fw-bold">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-
-          <li class="nav-item fs-3 fw-bold">
-            <a class="nav-link active" href="contact.html">Contact</a>
-          </li>
-
-        </ul>
+      <div class="navbar-brand">
+        <a href="index.html">findMakerspace()</a>
       </div>
 
+      <ul class="navbar-menu">
+        <li class="nav-menu-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+
+        <li class="nav-menu-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+
+        <li class="nav-menu-item">
+          <a class="dropdown-toggle" href="#" aria-expanded="false">States</a>
+          <div class="dropdown-menu">
+            <ul id="dropdown-menu">
+              <li>TEST</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="page-header">
+      <h1>CONTACT</h1>
     </div>
-  </nav>
 
-  <div class="container-fluid">
-    <h1 class="text-center text-dark fw-bold mt-3">CONTACT</h1>
-    <p class="mt-4 fs-3">
-      Feel free to reach out if there is a dead link,
-      if I'm missing a maker space or if you have questions about the site.
-    </p>
+    <div class="page-content">
+      <p class="contact-text">
+        Feel free to reach out if there is a dead link, if I'm missing a maker
+        space or if you have questions about the site.
+      </p>
 
-    <form id="contact-form" class="mt-5">
-      <input type="hidden" name="site" />
-      <div class="row flex-column">
-
-        <div class="col-10 mx-auto">
+      <form id="contact-form" class="contact-form">
+        <input type="hidden" name="site" />
+        <div class="form-row">
           <label for="contact-name" class="form-label">NAME</label>
-          <input id="contact-name" type="text" name="name" class="form-control" aria-label="Name">
+          <input
+            id="contact-name"
+            type="text"
+            name="name"
+            class="form-control"
+            aria-label="Name"
+          />
         </div>
-        <div class="col-10 mx-auto">
+        <div class="form-row">
           <label for="contact-email" class="form-label">E-MAIL</label>
-          <input id="contact-email" type="email" name="email" class="form-control" aria-label="Email">
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            class="form-control"
+            aria-label="Email"
+          />
         </div>
-        <div class="col-10 mx-auto">
+        <div class="form-row">
           <label for="contact-message" class="form-label">MESSAGE</label>
-          <textarea id="contact-message" name="message" rows="4" class="form-control"
-            aria-label="Message"></textarea>
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="4"
+            class="form-control"
+            aria-label="Message"
+          ></textarea>
         </div>
-        <button type="submit" value="Send" class="btn btn-lg my-2 mx-auto w-auto fw-bold fs-2 border border-4 border-dark">SEND</button>
-      </div>
-    </form>
-
-  </div>
-
-
-
-
-</body>
-
+        <button
+          type="submit"
+          value="Send"
+          class="btn btn-lg my-2 mx-auto w-auto fw-bold fs-2 border border-4 border-dark"
+        >
+          SEND
+        </button>
+      </form>
+    </div>
+  </body>
 </html>

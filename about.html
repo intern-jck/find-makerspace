@@ -1,255 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>findMakerspace()</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>findMakerspace(state)</title>
+    <!-- Font Awesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/cdcc65decb.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="styles/navbar.css" />
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- My Script -->
+    <!-- <script src="scripts/main.js" defer></script> -->
+  </head>
 
-  <!-- Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"
-    defer></script>
-
-  <!-- Prism CSS-->
-  <link rel="stylesheet" type="text/css" href="styles/prism.css">
-
-  <!-- Prism JavaScript -->
-  <script src="scripts/prism.js" defer></script>
-
-  <!-- My CSS -->
-  <link rel="stylesheet" type="text/css" href="styles/main.css">
-
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-lg" aria-label="site-nav">
-    <div class="container">
-
-      <a class="navbar-brand" href="index.html">findMakerspace()</a>
-      <a href="https://github.com/makerinchief/find-makerspace" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-navbar"
-        aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+  <body>
+    <nav class="navbar" aria-label="site-nav">
+      <button
+        class="navbar-toggler"
+        aria-controls="site-navbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fa-solid fa-bars"></i>
       </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="site-navbar">
-        <ul class="navbar-nav">
-
-          <li class="nav-item fs-3 fw-bold">
-            <a class="nav-link active" href="about.html">About</a>
-          </li>
-
-          <li class="nav-item fs-3 fw-bold">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-
-        </ul>
+      <div class="navbar-brand">
+        <a href="index.html">findMakerspace()</a>
       </div>
 
+      <ul class="navbar-menu">
+        <li class="nav-menu-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+
+        <li class="nav-menu-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+
+        <li class="nav-menu-item">
+          <a class="dropdown-toggle" href="#" aria-expanded="false">States</a>
+          <div class="dropdown-menu">
+            <ul id="dropdown-menu">
+              <li>TEST</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="page-header">
+      <h1>ABOUT</h1>
     </div>
-  </nav>
 
-  <div class="container">
-    <div class="row flex-column justify-content-center">
-
-      <h1 class="text-center text-dark fw-bold mt-3">ABOUT</h1>
-
-      <div class="col-auto">
-        <p class="mt-4 fs-3">
-          I created this site to be a fun tool to find US based makerspaces.
-          It's a work in progress and my first attempt at a web app.
-          I used the Python script below to search for makerspaces for each state in the US.
-        </p>
+    <div class="page-content">
+      <p class="about-text">
+        Lorem ipsum odor amet, consectetuer adipiscing elit. Dapibus augue a
+        aenean lacinia tellus. Odio parturient leo himenaeos porta mus rutrum
+        massa habitant efficitur. Velit nisi praesent convallis dictum aliquet
+        primis habitant. Nam finibus velit facilisis ullamcorper magnis maecenas
+        himenaeos per vivamus.
+      </p>
+      <div class="about-link">
+        <i class="fa-brands fa-github"></i>
       </div>
-
-      <div class="col-auto">
-        <p class="mt-4 fs-3">
-          I scraped the results to grab names and websites for each makerspace.
-          Results are saved to a <a href="https://raw.githubusercontent.com/intern-jck/findMakerspace/main/assets/json/spaceList.json">JSON</a> file which I later sorted through to clean up names and verify websites.
-          An SVG of the US was created and with some JavaScript, an interactive map was hacked together.
-          Check out the GitHub repo for Python sketch and webpage files.
-        </p>
-      </div>
-
-      <h2>Python</h2>
-      <div class="col-auto border border-4 border-dark">
-        <pre class="pre-scrollable">
-          <code class="language-python">
-
-from requests import get
-from bs4 import BeautifulSoup
-import json
-from time import sleep
-
-state_list = [ 'state_name' ]
-
-maker_list = {}
-
-# Filter results to find only title and links.
-def filter_results(raw_html):
-    soup = BeautifulSoup(raw_html, "html.parser")
-    result_block = soup.find_all("div", attrs={"class": "g"})
-    search_results = []
-    for result in result_block:
-        link = result.find("a", href=True)
-        title = result.find("h3")
-        if link and title:
-            # print(f"FOUND:\nTITLE: {title.text} \nLINK: {link['href']}")
-            arr = [title.text, link["href"]]
-            search_results.append(arr)
-
-    return search_results
-
-# Create a Google search url for a given state_name.
-# Then return the html from a url request.
-def search_google(state, num_results):
-    user_agent = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/61.0.3163.100 Safari/537.36"
-    }
-
-    search_term = state + "+makerspace"
-    google_url = "https://www.google.com/search?q={}&num={}&hl={}".format(
-        search_term, num_results, "en"
-    )
-
-    response = get(google_url, headers=user_agent, proxies=None)
-    response.raise_for_status()
-    return response.text
-
-# Search all the states in the list.
-# Add the title and url to each state in the json file.
-for state in state_list:
-    print(f"Finding spaces in {state}")
-    state_spaces = filter_results(search_google(state, 25))
-    maker_list[state] = state_spaces
-
-    print(f"Saving {state} to JSON...")
-    with open("./py-scripts/spaceList.json", "r+") as json_file:
-        json.dump(maker_list, json_file)
-
-    # Make sure to wait a few seconds between searches,
-    # else Google will block your IP address for a bit.
-    sleep(4)
-          </code>
-        </pre>
-      </div>
-
-      <h2>JavaScript</h2>
-      <div class="col-auto border border-4 border-dark">
-        <pre class="pre-scrollable">
-          <code class="language-javascript">
-// Get the json file of makerspaces from GitHub.
-let requestURL = 'https://raw.githubusercontent.com/intern-jck/findMakerspace/main/assets/json/spaceList.json';
-let request = new XMLHttpRequest();
-request.open('GET', requestURL);
-request.responseType = 'json';
-request.send();
-
-// Save contents of JSON.
-let makerList = {};
-request.onload = function () {
-  makerList = request.response;
-};
-
-// When the SVG loads, add events to each SVG path.
-let mySvg = document.getElementById("us-map");
-mySvg.onload = function () {
-  let svgPaths = document.getElementById("us-map").children;
-  for (let i = 0; i < svgPaths.length; i++) {
-    addEvent(svgPaths[i]);
-  }
-};
-
-function addEvent(state) {
-
-  // Get state svg.
-  element = document.getElementById(state.id);
-  // Show name on mouse hover.
-  element.addEventListener("mouseover", function () {
-    document.getElementById("state-title").textContent = state.id.toUpperCase();
-  });
-  // Reset title if not.
-  element.addEventListener("mouseout", function () {
-    document.getElementById("state-title").textContent = "PICK A STATE!";
-  });
-
-  // If clicked, show that state's makerspace list.
-  element.addEventListener("click", function () {
-    updateMakerList(state.id);
-    window.scrollBy(0, 400);
-  });
-
-};
-
-function updateMakerList(stateId) {
-
-  // Get the div to display makerspace list.
-  let listContent = document.getElementById("list-content");
-
-  // Create title for list.
-  document.getElementById("list-title").innerHTML = stateId.toUpperCase() + " Makerspaces";
-
-  // Clear any lists currently being shown.
-  while (listContent.firstChild) {
-    listContent.removeChild(listContent.firstChild);
-  }
-
-  // For each space in the list,
-  for (let space in makerList[stateId]) {
-
-    // make the name row,
-    let spaceNameRow = document.createElement("div");
-    spaceNameRow.classList.add("row");
-
-    // make the space name,
-    var spaceName = document.createElement('h2');
-    spaceName.innerHTML = makerList[stateId][space][0];
-    spaceName.classList.add("pt-2");
-    spaceName.classList.add("space-name");
-
-    // make the link row,
-    let spaceLinkRow = document.createElement("div");
-    spaceLinkRow.classList.add("row");
-
-    // make the space link,
-    var spaceLink = document.createElement('h2');
-    var linkAnchor = document.createElement('a');
-    linkAnchor.innerHTML = makerList[stateId][space][1];
-    linkAnchor.setAttribute("href", makerList[stateId][space][1]);
-    linkAnchor.setAttribute("target", "_blank");
-    linkAnchor.classList.add("pb-2");
-    linkAnchor.classList.add("space-link");
-    spaceLink.appendChild(linkAnchor);
-
-    // add name and link to their rows,
-    spaceNameRow.appendChild(spaceName);
-    spaceLinkRow.appendChild(spaceLink);
-
-    // then add the rows to the page.
-    listContent.appendChild(spaceNameRow);
-    listContent.appendChild(spaceLinkRow);
-  }
-}
-
-          </code>
-        </pre>
-      </div>
-
     </div>
-  </div>
-
-</body>
-
+  </body>
 </html>
