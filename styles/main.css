@@ -41,6 +41,83 @@ button:hover {
   cursor: pointer;
 }
 
+/* NAV */
+.navbar {
+  background-color: var(--nav-bg-color);
+  border: 4px solid var(--border-color);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+/* .navbar-toggler {
+  border: 4px solid black;
+  font-size: 3rem;
+  display: none;
+} */
+
+/* .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='4' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+} */
+
+
+.navbar-brand {
+  /* padding: 0; */
+  margin-left: 2rem;
+  margin-right: auto;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  margin-right: 2rem;
+  /* padding: 0; */
+  /* list-style: none; */
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.dropdown-toggle {
+  font-size: 2rem;
+  font-family: monospace;
+  font-weight: bold;;
+}
+
+/* .dropdown-icon {
+  transform:rotate(90deg)
+} */
+
+.rotate {
+  transform:rotate(270deg)
+}
+
+.dropdown-menu {
+  display: none;
+  border: 4px solid black;
+  background-color: var(--bg-color);
+  position: absolute;
+  top: 5rem;
+  right: 0;
+  height: 10rem;
+  min-width: 20rem;
+}
+
+.show {
+  height: 30rem;
+  overflow-y: scroll;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
 .page-content {
   display: flex;
   flex-direction: column;
@@ -52,13 +129,13 @@ h1 {
   margin: 1rem;
 }
 
+/* SVG */
 .space-map {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* SVG */
 #us-map {
   width: 80rem;
 }

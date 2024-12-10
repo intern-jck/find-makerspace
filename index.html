@@ -5,47 +5,135 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>findMakerspace()</title>  
+  <title>findMakerspace()</title>
   <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="styles/main.css" />
-  <link rel="stylesheet" type="text/css" href="styles/navbar.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="styles/navbar.css" /> -->
   <script src="scripts/main.js" defer></script>
 </head>
 
 <body>
   <nav class="navbar" aria-label="site-nav">
-    <button class="navbar-toggler" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       <i class="fa-solid fa-bars"></i>
-    </button>
+    </button> -->
 
-    <div class="navbar-brand">
-      <a href="index.html">findMakerspace()</a>
+    <!-- <div class="navbar-brand"> -->
+    <a class="navbar-brand" href="/">findMakerspace()</a>
+    <!-- </div> -->
+
+    <div class="navbar-menu">
+      <!-- <li class="nav-menu-item"> -->
+      <a class="nav-link" href="about.html">About</a>
+      <!-- </li> -->
+
+      <!-- <li class="nav-menu-item"> -->
+      <a class="nav-link" href="contact.html">Contact</a>
+      <!-- </li> -->
+
+      <!-- <li class="nav-menu-item"> -->
+      <button class="dropdown-toggle" onclick="toggleMenu()">
+        States
+        <i id="dropdown-icon" class="dropdown-icon fa fa-caret-left"></i>
+      </button>
+      <div id="state-menu" class="dropdown-menu">
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="west-virginia">Wisconsin</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="west-virginia">West
+          Virginia</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="washington">Washington</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="vermont">Vermont</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="virginia">Virginia</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="utah">utah</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="texas">texas</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="tennessee">Tennessee</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="south-dakota">South
+          Dakota</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="south-carolina">South Carolina</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="rhode-island">Rhode
+          Island</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="pennsylvania">Pennsylvania</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="oregon">Oregon</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="oklahoma">Oklahoma</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="ohio">Ohio</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="nevada">Nevada</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="north-dakota">North
+          Dakota</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="north-carolina">North Carolina</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="new-york">New
+          York</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="new-mexico">New
+          Mexico</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="new-hampshire">New
+          Hampshire</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="new-jersey">New
+          Jersey</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="nebraska">Nebraska</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="montana">Montana</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="missouri">Missouri</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="mississippi">Mississippi</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="minnesota">Minnesota</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="michigan">Michigan</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="massachusetts">Massachusetts</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="maryland">Maryland</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="maine">Maine</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="louisana">Louisana</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="kentucky">kKentucky</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="kansas">Kansas</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="iowa">Iowa</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="illinois">Illinois</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="indiana">Indiana</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="idaho">Idaho</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="hawaii">Hawaii</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="florida">Florida</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="georgia">Georgia</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="delaware">Delaware</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="connecticut">Connecticut</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="colorado">Colorado</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="california">California</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="arkansas">Arkansas</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="arizona">Arizona</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))" data-state="alaska">Alaska</a>
+        <a href="#list-title" onclick="updateMakerList(this.getAttribute('data-state'))"
+          data-state="alabama">Alabama</a>
+      </div>
+      <!-- </li> -->
     </div>
-
-    <ul class="navbar-menu">
-      <li class="nav-menu-item">
-        <a class="nav-link" href="about.html">About</a>
-      </li>
-
-      <li class="nav-menu-item">
-        <a class="nav-link" href="contact.html">Contact</a>
-      </li>
-
-      <li class="nav-menu-item">
-        <a class="dropdown-toggle" href="#" aria-expanded="false">States</a>
-        <div class="dropdown-menu">
-          <ul id="dropdown-menu">
-            <li>TEST</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
   </nav>
 
   <div class="page-header">
     <h1 id="state-title">PICK A STATE!</h1>
   </div>
+
 
   <div class="page-content">
     <div class="space-map">

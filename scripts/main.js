@@ -81,10 +81,8 @@ function addSvgMouseEvents(state) {
 
 function updateMakerList(stateId) {
 
-  console.log(stateId)
   // have to modify stateId to match key in spaceList
   let stateName = stateId.split("-");
-  console.log(stateName);
 
   for (let i in stateName) {
     let name = String(stateName[i]).charAt(0).toUpperCase() + String(stateName[i]).slice(1);
@@ -92,7 +90,6 @@ function updateMakerList(stateId) {
   }
 
   stateName = stateName.join(" ");
-  console.log(stateName);
 
   // Get the div to display makerspace list.
   let listContent = document.getElementById("list-content");
@@ -112,7 +109,6 @@ function updateMakerList(stateId) {
   //  const makerspaces = makerspaceList[stateId];
   // console.log(makerspaces)
 
-  console.log(stateName)
   const makerspaces = spaceList[stateName]
 
   // test
@@ -158,6 +154,17 @@ function updateMakerList(stateId) {
     // then add the rows to the page.
     listContent.appendChild(row);
   }
+}
+
+function toggleMenu() {
+
+  const dropdownMenu = document.getElementById("state-menu");
+  dropdownMenu.classList.toggle("show");
+  // console.log(dropdownMenu)
+
+  const dropdownIcon = document.getElementById("dropdown-icon");
+  dropdownIcon.classList.toggle("rotate");
+
 }
 
 // function getStateList() {
