@@ -1,64 +1,38 @@
-// Get the json file of makerspaces from GitHub.
-// let requestURL =
-//   "https://raw.githubusercontent.com/intern-jck/findMakerspace/main/assets/json/spaceList.json";
-
-const testList = {
-  states: {
-    state_1: {
-      space_1: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-      space_2: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-      space_3: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-    },
-    state_2: {
-      space_1: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-      space_2: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-    },
-    state_3: {
-      space_1: {
-        name: "makerspace name",
-        url: "https://testurl.com",
-      },
-    },
-  },
-};
-
 let spaceList = {};
-let makerspaceList = {};
 
-window.addEventListener("load", () => {
-  makerspaceList = testList.states;
+window.onload = function () {
 
+  // Get json data for makerspaces.
   fetch("../assets/data/state_list.json")
     .then(res => res.json())
     .then(data => spaceList = data)
     .catch(error => console.log(error));
 
-  let mySvg = document.getElementById("us-map");
+  // Add mouse events to svg.
   let svgPaths = document.getElementById("us-map").children;
   for (let i = 0; i < svgPaths.length; i++) {
     addSvgMouseEvents(svgPaths[i]);
   }
-});
+};
+
+// Get scroll to top button.
+const scrollButton = document.getElementById('scroll-top-btn');
+
+// Listen for the scroll event.
+window.onscroll = function () {
+  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+    scrollButton.style.display = 'block'; // Show button
+  } else {
+    scrollButton.style.display = 'none'; // Hide button
+  }
+};
 
 function addSvgMouseEvents(state) {
+
   // Get state svg.
   element = document.getElementById(state.id);
-  // Show name on mouse hover.
+
+  // Show state name on mouse hover.
   element.addEventListener("mouseover", function () {
     document.getElementById("state-title").textContent = state.id
       .replace("-", " ")
@@ -73,15 +47,20 @@ function addSvgMouseEvents(state) {
   // If clicked, show that state's makerspace list.
   element.addEventListener("click", function () {
     updateMakerList(state.id);
-    const windowHeight = window.innerHeight;
-    // A little hacky but should adjust so window scrolls into view on different screens
-    window.scrollBy(0, windowHeight - 200);
+    const listTitle = document.getElementById("list-title");
+    listTitle.scrollIntoView({alignToTop: true, behavior: 'smooth'});
   });
 }
 
 function updateMakerList(stateId) {
 
-  // have to modify stateId to match key in spaceList
+  // Hide dropdown menu when selection is made.
+  const dropdownMenu = document.getElementById("state-menu");
+  if (dropdownMenu.classList.contains("show")) {
+    dropdownMenu.classList.remove("show")
+  }
+
+  // Modify stateId to match key in stateList
   let stateName = stateId.split("-");
 
   for (let i in stateName) {
@@ -91,10 +70,10 @@ function updateMakerList(stateId) {
 
   stateName = stateName.join(" ");
 
-  // Get the div to display makerspace list.
-  let listContent = document.getElementById("list-content");
+  // Get div for makerspace list.
+  const listContent = document.getElementById("list-content");
 
-  // Clear any lists currently being shown.
+  // Clear any lists in div.
   while (listContent.firstChild) {
     listContent.removeChild(listContent.firstChild);
   }
@@ -102,81 +81,50 @@ function updateMakerList(stateId) {
   // Create title for list.
   document.getElementById("list-title").textContent = stateName + " Makerspaces";
 
-  // For testing
-  // let ranNum = Math.floor(Math.random() * 3) + 1;
-  // stateId = `state_${ranNum}`;
-  // console.log(stateId);
-  //  const makerspaces = makerspaceList[stateId];
-  // console.log(makerspaces)
-
+  // Go through list of spaces and create html to display.
   const makerspaces = spaceList[stateName]
-
-  // test
-  // for (let key in makerspaces) {
-  //   const space = makerspaces[key]
-  //   console.log(space)
-  //   console.log(space.name)
-  //   console.log(space.url)
-  // }
 
   for (let key in makerspaces) {
 
     const space = makerspaces[key]
-    // console.log(space)
 
-    // make the space div,
     let row = document.createElement("div");
     row.classList.add("list-row");
 
-    // make the  name,
     let name = document.createElement("h3");
     name.classList.add("name");
     name.textContent = space.Name;
-
 
     let snippet = document.createElement("p");
     snippet.classList.add("snippet");
     snippet.textContent = space.Snippet;
 
-    // make the link row,
     let link = document.createElement("a");
     link.classList.add("link");
     link.setAttribute("href", space.Link);
     link.setAttribute("target", "_blank");
     link.textContent = space.Link;
 
-    // add name and link to their rows,
     row.appendChild(name);
     row.appendChild(snippet);
     row.appendChild(link);
-    // console.log(spaceRow)
 
-    // then add the rows to the page.
     listContent.appendChild(row);
   }
 }
 
+// Shows state list dropdown menu.
 function toggleMenu() {
 
   const dropdownMenu = document.getElementById("state-menu");
   dropdownMenu.classList.toggle("show");
-  // console.log(dropdownMenu)
 
   const dropdownIcon = document.getElementById("dropdown-icon");
   dropdownIcon.classList.toggle("rotate");
 
 }
 
-// function getStateList() {
-//   const requestURL = "../assets/data/state_list.json";
-//   const request = new XMLHttpRequest();
-//   request.open("GET", requestURL);
-//   request.responseType = "json";
-//   request.send();
-
-//   makerspaceList = {};
-//   request.onload = function () {
-//     console.log(request.response);
-//     makerspaceList = request.response;
-//   };
-// }
+// Scrolls to the top of the page.
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
