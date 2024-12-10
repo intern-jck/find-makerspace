@@ -1,142 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>findMakerspace()</title>
 
-    <!-- Font Awesome Icons -->
-    <script
-      src="https://kit.fontawesome.com/cdcc65decb.js"
-      crossorigin="anonymous"
-    ></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>findMakerspace()</title>
+  <script src="https://kit.fontawesome.com/cdcc65decb.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="styles/main.css" />
+  <link rel="stylesheet" type="text/css" href="styles/navbar.css" />
 
-    <!-- My CSS -->
-    <link rel="stylesheet" type="text/css" href="styles/main.css" />
-    <link rel="stylesheet" type="text/css" href="styles/navbar.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
 
-    <!-- EmailJS -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-    ></script>
+  <script type="text/javascript" defer>
+    (function () {
+      emailjs.init("user_zEaMjktSGuSK3vfKZTaF3");
+    })();
+  </script>
 
-    <script type="text/javascript" defer>
-      (function () {
-        emailjs.init("user_zEaMjktSGuSK3vfKZTaF3");
-      })();
-    </script>
+  <script type="text/javascript" defer>
+    window.onload = function () {
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          this.site.value = "find-makerspace";
+          emailjs.sendForm("general_service", "general_template", this).then(
+            function () {
+              console.log("SUCCESS!");
+              window.alert("Thank you for the message!");
+            },
+            function (error) {
+              console.log("FAILED...", error);
+            }
+          );
+        });
+    };
+  </script>
+</head>
 
-    <script type="text/javascript" defer>
-      window.onload = function () {
-        document
-          .getElementById("contact-form")
-          .addEventListener("submit", function (event) {
-            event.preventDefault();
-            // Hack to use same template for multiple sites
-            this.site.value = "find-makerspace";
-            // these IDs from the previous steps
-            emailjs.sendForm("general_service", "general_template", this).then(
-              function () {
-                console.log("SUCCESS!");
-                window.alert("Thank you for the message!");
-              },
-              function (error) {
-                console.log("FAILED...", error);
-              }
-            );
-          });
-      };
-    </script>
-  </head>
+<body>
+  <nav class="navbar" aria-label="site-nav">
+    <button class="navbar-toggler" aria-controls="site-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-  <body>
-    <nav class="navbar" aria-label="site-nav">
-      <button
-        class="navbar-toggler"
-        aria-controls="site-navbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <i class="fa-solid fa-bars"></i>
-      </button>
+    <div class="navbar-brand">
+      <a href="index.html">findMakerspace()</a>
+    </div>
 
-      <div class="navbar-brand">
-        <a href="index.html">findMakerspace()</a>
+    <ul class="navbar-menu">
+      <li class="nav-menu-item">
+        <a class="nav-link" href="about.html">About</a>
+      </li>
+
+      <li class="nav-menu-item">
+        <a class="nav-link" href="contact.html">Contact</a>
+      </li>
+
+      <li class="nav-menu-item">
+        <a class="dropdown-toggle" href="#" aria-expanded="false">States</a>
+        <div class="dropdown-menu">
+          <ul id="dropdown-menu">
+            <li>TEST</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <h1>CONTACT</h1>
+  </div>
+
+  <div class="page-content">
+    <p class="contact-text">
+      Feel free to reach out with any questions, comments or concerns.
+    </p>
+
+    <form id="contact-form" class="contact-form">
+      <input type="hidden" name="site" />
+      <div class="form-row">
+        <label for="contact-name" class="form-label">NAME</label>
+        <input id="contact-name" type="text" name="name" class="form-control" aria-label="Name" />
       </div>
+      <div class="form-row">
+        <label for="contact-email" class="form-label">E-MAIL</label>
+        <input id="contact-email" type="email" name="email" class="form-control" aria-label="Email" />
+      </div>
+      <div class="form-row">
+        <label for="contact-message" class="form-label">MESSAGE</label>
+        <textarea id="contact-message" name="message" rows="4" class="form-control" aria-label="Message"></textarea>
+      </div>
+      <button type="submit" value="Send"
+        class="btn btn-lg my-2 mx-auto w-auto fw-bold fs-2 border border-4 border-dark">
+        SEND
+      </button>
+    </form>
+  </div>
+</body>
 
-      <ul class="navbar-menu">
-        <li class="nav-menu-item">
-          <a class="nav-link" href="about.html">About</a>
-        </li>
-
-        <li class="nav-menu-item">
-          <a class="nav-link" href="contact.html">Contact</a>
-        </li>
-
-        <li class="nav-menu-item">
-          <a class="dropdown-toggle" href="#" aria-expanded="false">States</a>
-          <div class="dropdown-menu">
-            <ul id="dropdown-menu">
-              <li>TEST</li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="page-header">
-      <h1>CONTACT</h1>
-    </div>
-
-    <div class="page-content">
-      <p class="contact-text">
-        Feel free to reach out if there is a dead link, if I'm missing a maker
-        space or if you have questions about the site.
-      </p>
-
-      <form id="contact-form" class="contact-form">
-        <input type="hidden" name="site" />
-        <div class="form-row">
-          <label for="contact-name" class="form-label">NAME</label>
-          <input
-            id="contact-name"
-            type="text"
-            name="name"
-            class="form-control"
-            aria-label="Name"
-          />
-        </div>
-        <div class="form-row">
-          <label for="contact-email" class="form-label">E-MAIL</label>
-          <input
-            id="contact-email"
-            type="email"
-            name="email"
-            class="form-control"
-            aria-label="Email"
-          />
-        </div>
-        <div class="form-row">
-          <label for="contact-message" class="form-label">MESSAGE</label>
-          <textarea
-            id="contact-message"
-            name="message"
-            rows="4"
-            class="form-control"
-            aria-label="Message"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          value="Send"
-          class="btn btn-lg my-2 mx-auto w-auto fw-bold fs-2 border border-4 border-dark"
-        >
-          SEND
-        </button>
-      </form>
-    </div>
-  </body>
 </html>

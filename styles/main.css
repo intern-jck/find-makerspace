@@ -97,30 +97,45 @@ h1 {
   fill: var(--state-4-color);
 }
 
-/* Makerspace List Section */
+/* MAKERSPACE LIST */
 #list-title {
   color: var(--font-color);
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 #list-content {
+  width: 80vw;
+  margin: auto;
   padding-bottom: 10rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  gap: 1rem;
 }
 
-.space-name {
+.list-row {
+  /* border: 2px solid green; */
+  width: 100%;
+}
+
+.name {
   font-weight: bold;
-  color: var(--state-4-color);
+  color: var(--state-3-color);
+  font-size: 1.6rem;
 }
 
-.space-link {
+.snippet {
+  font-weight: bold;
+  color: var(--font-color);
+  font-size: 1.2rem;
+}
+
+.link {
   color: var(--state-2-color);
   word-wrap: break-word;
+  font-size: 1.2rem;
 }
 
 /* ABOUT PAGE */
@@ -137,7 +152,6 @@ h1 {
 }
 
 /* CONTACT PAGE */
-
 .contact-text {
   width: 50rem;
   margin: auto;
@@ -155,7 +169,6 @@ h1 {
 }
 
 .contact-form .form-row {
-  /* border: 2px solid black; */
   display: flex;
   flex-direction: column;
 }

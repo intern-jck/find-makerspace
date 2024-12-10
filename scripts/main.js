@@ -37,10 +37,17 @@ const testList = {
   },
 };
 
+let spaceList = {};
 let makerspaceList = {};
 
 window.addEventListener("load", () => {
   makerspaceList = testList.states;
+
+  fetch("../assets/data/state_list.json")
+    .then(res => res.json())
+    .then(data => spaceList = data)
+    .catch(error => console.log(error));
+
   let mySvg = document.getElementById("us-map");
   let svgPaths = document.getElementById("us-map").children;
   for (let i = 0; i < svgPaths.length; i++) {
@@ -73,26 +80,40 @@ function addSvgMouseEvents(state) {
 }
 
 function updateMakerList(stateId) {
-  console.log(stateId);
+
+  console.log(stateId)
+  // have to modify stateId to match key in spaceList
+  let stateName = stateId.split("-");
+  console.log(stateName);
+
+  for (let i in stateName) {
+    let name = String(stateName[i]).charAt(0).toUpperCase() + String(stateName[i]).slice(1);
+    stateName[i] = name;
+  }
+
+  stateName = stateName.join(" ");
+  console.log(stateName);
 
   // Get the div to display makerspace list.
   let listContent = document.getElementById("list-content");
-
-  // Create title for list.
-  document.getElementById("list-title").innerHTML =
-    stateId.toUpperCase() + " MAKERSPACES";
 
   // Clear any lists currently being shown.
   while (listContent.firstChild) {
     listContent.removeChild(listContent.firstChild);
   }
 
-  let ranNum = Math.floor(Math.random() * 3) + 1;
-  stateId = `state_${ranNum}`;
+  // Create title for list.
+  document.getElementById("list-title").textContent = stateName + " Makerspaces";
 
-  console.log(stateId);
-  const makerspaces = makerspaceList[stateId];
+  // For testing
+  // let ranNum = Math.floor(Math.random() * 3) + 1;
+  // stateId = `state_${ranNum}`;
+  // console.log(stateId);
+  //  const makerspaces = makerspaceList[stateId];
   // console.log(makerspaces)
+
+  console.log(stateName)
+  const makerspaces = spaceList[stateName]
 
   // test
   // for (let key in makerspaces) {
@@ -106,48 +127,49 @@ function updateMakerList(stateId) {
 
     const space = makerspaces[key]
     // console.log(space)
-    console.log(space.name)
-    console.log(space.url)
-
-    const name = space.name;
-    const url = space.url;
 
     // make the space div,
-    let spaceRow = document.createElement("div");
-    spaceRow.classList.add("space-list-row");
+    let row = document.createElement("div");
+    row.classList.add("list-row");
 
-    // make the space name,
-    var spaceName = document.createElement("h2");
-    spaceName.classList.add("space-name");
-    spaceName.textContent = name;
+    // make the  name,
+    let name = document.createElement("h3");
+    name.classList.add("name");
+    name.textContent = space.Name;
+
+
+    let snippet = document.createElement("p");
+    snippet.classList.add("snippet");
+    snippet.textContent = space.Snippet;
 
     // make the link row,
-    let spaceUrl = document.createElement("a");
-    spaceUrl.classList.add("space-url");
-    spaceUrl.setAttribute("href", url);
-    spaceUrl.setAttribute("target", "_blank");
-    spaceUrl.innerHTML = url;
+    let link = document.createElement("a");
+    link.classList.add("link");
+    link.setAttribute("href", space.Link);
+    link.setAttribute("target", "_blank");
+    link.textContent = space.Link;
 
     // add name and link to their rows,
-    spaceRow.appendChild(spaceName);
-    spaceRow.appendChild(spaceUrl);
-    console.log(spaceRow)
+    row.appendChild(name);
+    row.appendChild(snippet);
+    row.appendChild(link);
+    // console.log(spaceRow)
 
     // then add the rows to the page.
-    listContent.appendChild(spaceRow);
+    listContent.appendChild(row);
   }
 }
 
-function getStateList() {
-  const requestURL = "../assets/data/state_list.json";
-  const request = new XMLHttpRequest();
-  request.open("GET", requestURL);
-  request.responseType = "json";
-  request.send();
+// function getStateList() {
+//   const requestURL = "../assets/data/state_list.json";
+//   const request = new XMLHttpRequest();
+//   request.open("GET", requestURL);
+//   request.responseType = "json";
+//   request.send();
 
-  makerspaceList = {};
-  request.onload = function () {
-    console.log(request.response);
-    makerspaceList = request.response;
-  };
-}
+//   makerspaceList = {};
+//   request.onload = function () {
+//     console.log(request.response);
+//     makerspaceList = request.response;
+//   };
+// }
